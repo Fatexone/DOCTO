@@ -24,11 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             const targetId = link.getAttribute('href').substring(1);
-            const targetCategory = document.getElementById(targetId);
-
-            if (targetCategory) {
-                targetCategory.classList.toggle('hidden');
-            }
+            faqCategories.forEach(category => {
+                if (category.id === targetId) {
+                    category.classList.toggle('hidden');
+                } else {
+                    category.classList.add('hidden');
+                }
+            });
         });
     });
 
