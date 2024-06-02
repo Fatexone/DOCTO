@@ -5,7 +5,8 @@ const app = express();
 require('dotenv').config();
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static('docs'));
+
 
 // Simulate database for available slots
 const availableSlots = [
