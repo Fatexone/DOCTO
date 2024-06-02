@@ -99,7 +99,7 @@ footer {
 }
 
 .faq-category {
-    display: none;
+    display: block; /* Initialisez avec display: block */
     margin-top: 1em;
     padding: 1em;
     background-color: rgba(255, 255, 255, 0.9);

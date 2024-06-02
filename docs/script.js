@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = link.getAttribute('href').substring(1);
             faqCategories.forEach(category => {
                 if (category.id === targetId) {
-                    category.classList.toggle('hidden');
+                    category.classList.remove('hidden');
                 } else {
                     category.classList.add('hidden');
                 }
