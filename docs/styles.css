@@ -138,3 +138,20 @@ footer {
     background-color: #45a049;
     transform: translateY(-2px);
 }
+
+/* CSS pour l'image et le texte d'accueil */
+.welcome-content {
+    text-align: center;
+}
+
+.welcome-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.welcome-content p {
+    margin-top: 1em;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
