@@ -1,3 +1,63 @@
+function initMap() {
+    const cabinetLocation = { lat: 48.8544, lng: 2.3624 }; // Coordonnées de 19 Rue Saint-Antoine, 75004 Paris
+
+    // Créer la carte centrée sur la localisation du cabinet
+    const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: cabinetLocation
+    });
+
+    // Ajouter un marqueur pour la localisation du cabinet
+    const marker = new google.maps.Marker({
+        position: cabinetLocation,
+        map: map,
+        title: 'Cabinet Dentaire Docteur Anthony'
+    });
+
+    // Utiliser la géolocalisation pour obtenir la position de l'utilisateur
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            // Ajouter un marqueur pour la position de l'utilisateur
+            const userMarker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: 'Votre position',
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 8,
+                    fillColor: '#4285F4',
+                    fillOpacity: 1,
+                    strokeWeight: 2,
+                    strokeColor: '#ffffff'
+                }
+            });
+
+            // Recentrer la carte pour inclure la position du cabinet et celle de l'utilisateur
+            const bounds = new google.maps.LatLngBounds();
+            bounds.extend(cabinetLocation);
+            bounds.extend(userLocation);
+            map.fitBounds(bounds);
+
+        }, function() {
+            handleLocationError(true, map.getCenter());
+        });
+    } else {
+        // Le navigateur ne supporte pas la géolocalisation
+        handleLocationError(false, map.getCenter());
+    }
+}
+
+function handleLocationError(browserHasGeolocation, pos) {
+    console.log(browserHasGeolocation ?
+                'Erreur : Le service de géolocalisation a échoué.' :
+                'Erreur : Votre navigateur ne supporte pas la géolocalisation.');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
@@ -102,67 +162,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    // Initialiser la carte
-    initMap();
 });
-
-function initMap() {
-    const cabinetLocation = { lat: 48.8544, lng: 2.3624 }; // Coordonnées de 19 Rue Saint-Antoine, 75004 Paris
-
-    // Créer la carte centrée sur la localisation du cabinet
-    const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14,
-        center: cabinetLocation
-    });
-
-    // Ajouter un marqueur pour la localisation du cabinet
-    const marker = new google.maps.Marker({
-        position: cabinetLocation,
-        map: map,
-        title: 'Cabinet Dentaire Docteur Anthony'
-    });
-
-    // Utiliser la géolocalisation pour obtenir la position de l'utilisateur
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const userLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            // Ajouter un marqueur pour la position de l'utilisateur
-            const userMarker = new google.maps.Marker({
-                position: userLocation,
-                map: map,
-                title: 'Votre position',
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 8,
-                    fillColor: '#4285F4',
-                    fillOpacity: 1,
-                    strokeWeight: 2,
-                    strokeColor: '#ffffff'
-                }
-            });
-
-            // Recentrer la carte pour inclure la position du cabinet et celle de l'utilisateur
-            const bounds = new google.maps.LatLngBounds();
-            bounds.extend(cabinetLocation);
-            bounds.extend(userLocation);
-            map.fitBounds(bounds);
-
-        }, function() {
-            handleLocationError(true, map.getCenter());
-        });
-    } else {
-        // Le navigateur ne supporte pas la géolocalisation
-        handleLocationError(false, map.getCenter());
-    }
-}
-
-function handleLocationError(browserHasGeolocation, pos) {
-    console.log(browserHasGeolocation ?
-                'Erreur : Le service de géolocalisation a échoué.' :
-                'Erreur : Votre navigateur ne supporte pas la géolocalisation.');
-}
