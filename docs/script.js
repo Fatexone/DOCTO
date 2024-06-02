@@ -24,14 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = link.getAttribute('href').substring(1);
             const targetCategory = document.getElementById(targetId);
 
-            // Toggle visibility of the clicked category
-            faqCategories.forEach(category => {
-                if (category === targetCategory) {
-                    category.classList.toggle('hidden');
-                } else {
-                    category.classList.add('hidden');
-                }
-            });
+            if (targetCategory) {
+                // Toggle visibility of the clicked category
+                targetCategory.classList.toggle('hidden');
+                // Ensure all other categories are hidden
+                faqCategories.forEach(category => {
+                    if (category !== targetCategory) {
+                        category.classList.add('hidden');
+                    }
+                });
+            }
         });
     });
 
@@ -40,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeSelect = document.getElementById('time');
 
     if (dateInput) {
-        // Charger les créneaux disponibles lorsqu'une date est sélectionnée
         dateInput.addEventListener('change', () => {
             const selectedDate = dateInput.value;
             fetch('https://vercel-f5mcyqjpb-fatexones-projects.vercel.app/available-slots')
