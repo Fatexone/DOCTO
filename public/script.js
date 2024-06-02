@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
+    const faqCategoryLinks = document.querySelectorAll('.faq-category-link');
+    const faqCategories = document.querySelectorAll('.faq-category');
 
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
@@ -11,6 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     section.classList.remove('hidden');
                 } else {
                     section.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    faqCategoryLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            faqCategories.forEach(category => {
+                if (category.id === targetId) {
+                    category.classList.remove('hidden');
+                } else {
+                    category.classList.add('hidden');
                 }
             });
         });
