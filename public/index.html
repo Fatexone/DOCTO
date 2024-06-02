@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabinet Dentaire Docteur Anthony</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Cabinet Dentaire Docteur Anthony</h1>
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link">Accueil</a></li>
+                <li><a href="#faq" class="nav-link">Questions fréquentes</a></li>
+                <li><a href="#appointment" class="nav-link">Prise de rendez-vous</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section">
+            <h2>Bienvenue au Cabinet Dentaire Docteur Anthony</h2>
+            <p>Nous offrons une gamme complète de soins dentaires...</p>
+        </section>
+
+        <section id="faq" class="section hidden">
+            <h2>Questions fréquentes</h2>
+            <div id="faq-categories">
+                <h3><a href="#category1" class="faq-category-link">Rendez-vous et Disponibilité</a></h3>
+                <h3><a href="#category2" class="faq-category-link">Services et Traitements</a></h3>
+                <h3><a href="#category3" class="faq-category-link">Coût et Paiement</a></h3>
+                <h3><a href="#category4" class="faq-category-link">Qualifications et Expérience</a></h3>
+                <h3><a href="#category5" class="faq-category-link">Technologies et Installations</a></h3>
+                <h3><a href="#category6" class="faq-category-link">Précautions et Hygiène</a></h3>
+                <h3><a href="#category7" class="faq-category-link">Confort et Anxiété</a></h3>
+                <h3><a href="#category8" class="faq-category-link">Soins Post-Opératoires et Suivi</a></h3>
+                <h3><a href="#category9" class="faq-category-link">Prévention et Éducation</a></h3>
+                <h3><a href="#category10" class="faq-category-link">Divers</a></h3>
+            </div>
+            <div id="faq-list">
+                <div id="category1" class="faq-category hidden">
+                    <h3>Rendez-vous et Disponibilité</h3>
+                    <div class="faq-item">
+                        <h4>Quels sont vos horaires d'ouverture ?</h4>
+                        <p>Nous sommes ouverts du lundi au vendredi, de 8h00 à 18h00, et le samedi de 9h00 à 13h00.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Êtes-vous disponible le soir ou le week-end ?</h4>
+                        <p>Oui, nous avons des créneaux disponibles le samedi matin et en soirée sur rendez-vous.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Puis-je prendre rendez-vous en ligne ?</h4>
+                        <p>Oui, vous pouvez prendre rendez-vous directement sur notre site internet.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Combien de temps à l'avance dois-je prendre rendez-vous ?</h4>
+                        <p>Il est conseillé de prendre rendez-vous au moins une semaine à l'avance pour garantir un créneau qui vous convient.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Avez-vous des créneaux disponibles cette semaine ?</h4>
+                        <p>Nous avons quelques créneaux disponibles cette semaine, veuillez nous appeler pour vérifier les disponibilités exactes.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Puis-je obtenir un rendez-vous d'urgence ?</h4>
+                        <p>Oui, nous réservons des créneaux pour les urgences dentaires chaque jour. Appelez-nous dès que possible.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Combien de temps dure un rendez-vous typique ?</h4>
+                        <p>Un rendez-vous typique dure entre 30 minutes et une heure, selon la nature de la consultation.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Quelle est la durée d'attente moyenne pour un rendez-vous ?</h4>
+                        <p>La durée d'attente moyenne est d'environ une semaine, mais cela peut varier.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Puis-je changer ou annuler un rendez-vous facilement ?</h4>
+                        <p>Oui, vous pouvez changer ou annuler un rendez-vous en nous appelant au moins 24 heures à l'avance.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Proposez-vous des consultations sans rendez-vous ?</h4>
+                        <p>Non, nous fonctionnons uniquement sur rendez-vous pour mieux organiser notre emploi du temps et réduire les temps d'attente.</p>
+                    </div>
+                </div>
+
+                <div id="category2" class="faq-category hidden">
+                    <h3>Services et Traitements</h3>
+                    <!-- Ajouter les questions de cette catégorie -->
+                </div>
+
+                <div id="category3" class="faq-category hidden">
+                    <h3>Coût et Paiement</h3>
+                    <!-- Ajouter les questions de cette catégorie -->
+                </div>
+
+                <!-- Répéter pour les autres catégories -->
+            </div>
+        </section>
+
+        <section id="appointment" class="section hidden">
+            <h2>Prise de rendez-vous</h2>
+            <form id="appointment-form">
+                <label for="name">Nom:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Téléphone:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Heure:</label>
+                <select id="time" name="time" required>
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+
+                <label for="needs">Description des besoins:</label>
+                <textarea id="needs" name="needs" required></textarea>
+
+                <button type="submit">Prendre rendez-vous</button>
+            </form>
+        </section>
+
+        <section id="contact" class="section hidden">
+            <h2>Contact</h2>
+            <form id="contact-form">
+                <label for="contact-name">Nom:</label>
+                <input type="text" id="contact-name" name="contact-name" required>
+
+                <label for="contact-email">Email:</label>
+                <input type="email" id="contact-email" name="contact-email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Envoyer</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cabinet Dentaire Docteur Anthony</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
