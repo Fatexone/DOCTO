@@ -2,14 +2,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('images/your-background-image.png');
+    background-image: url('background-image.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
 header {
-    background-color: rgba(76, 175, 80, 0.8);
+    background-color: rgba(76, 175, 80, 0.8); /* Ajout d'un fond semi-transparent pour le header */
     color: white;
     padding: 1em 0;
     text-align: center;
@@ -32,7 +32,7 @@ nav ul li a {
 
 main {
     padding: 1em;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+    background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent pour le contenu principal */
 }
 
 section {
@@ -79,4 +79,20 @@ footer {
 
 .hidden {
     display: none;
+}
+
+.button {
+    display: inline-block;
+    padding: 1em 2em;
+    margin-top: 1em;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #45a049;
 }
