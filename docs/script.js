@@ -183,4 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Initialiser la carte
+    initMap();
 });
