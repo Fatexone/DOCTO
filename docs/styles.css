@@ -155,3 +155,9 @@ footer {
     font-size: 1.2em;
     line-height: 1.5;
 }
+
+/* Centrer le titre h2 */
+#home h2 {
+    text-align: center;
+}
+
