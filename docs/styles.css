@@ -74,16 +74,16 @@ footer {
 }
 
 .faq {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
     margin-top: 2em;
+    padding: 1em;
 }
 
 .faq-category-link {
-    display: inline-block;
-    padding: 1em 2em;
-    margin: 0.5em 0;
+    display: block;
+    padding: 1em;
     background-color: #4CAF50;
     color: white;
     text-align: center;
@@ -99,27 +99,18 @@ footer {
 }
 
 .faq-category {
-    width: 80%;
-    margin: 1em 0;
+    display: none;
+    margin-top: 1em;
     padding: 1em;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.hidden {
-    display: none;
-}
-
 .faq-item {
     margin: 1em 0;
 }
 
-.faq-item h4 {
-    cursor: pointer;
-}
-
-.faq-item p {
-    margin: 0.5em 0 0 0;
-    padding: 0;
+.hidden {
+    display: none;
 }
