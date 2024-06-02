@@ -14,6 +14,11 @@ function initMap() {
         title: 'Cabinet Dentaire Docteur Anthony'
     });
 
+    // Directions service and renderer
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
+
     // Utiliser la géolocalisation pour obtenir la position de l'utilisateur
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -42,6 +47,22 @@ function initMap() {
             bounds.extend(cabinetLocation);
             bounds.extend(userLocation);
             map.fitBounds(bounds);
+
+            // Tracer l'itinéraire de l'utilisateur au cabinet
+            directionsService.route(
+                {
+                    origin: userLocation,
+                    destination: cabinetLocation,
+                    travelMode: google.maps.TravelMode.DRIVING
+                },
+                (response, status) => {
+                    if (status === 'OK') {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        console.log('Directions request failed due to ' + status);
+                    }
+                }
+            );
 
         }, function() {
             handleLocationError(true, map.getCenter());
