@@ -1,12 +1,19 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 require('dotenv').config();
 
 app.use(bodyParser.json());
-app.use(express.static('docs'));
 
+// Configure the static files middleware
+app.use(express.static(path.join(__dirname, '..', 'docs')));
+
+// Serve the index.html file for the root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'docs', 'index.html'));
+});
 
 // Simulate database for available slots
 const availableSlots = [
@@ -45,6 +52,6 @@ app.post('/send-email', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(4000, () => {
+    console.log('Server is running on port 4000');
 });
