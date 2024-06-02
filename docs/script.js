@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.section');
     const faqCategoryLinks = document.querySelectorAll('.faq-category-link');
     const faqCategories = document.querySelectorAll('.faq-category');
+    const faqItems = document.querySelectorAll('.faq-item h4');
 
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
@@ -29,6 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     category.classList.add('hidden');
                 }
             });
+        });
+    });
+
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const content = item.nextElementSibling;
+            content.classList.toggle('hidden');
         });
     });
 
