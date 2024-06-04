@@ -8,7 +8,7 @@ function initMap() {
     });
 
     // Ajouter un marqueur pour la localisation du cabinet
-    const marker = new google.maps.Marker({
+    const marker = new google.maps.marker.AdvancedMarkerElement({
         position: cabinetLocation,
         map: map,
         title: 'Cabinet Dentaire Docteur Anthony'
@@ -28,7 +28,7 @@ function initMap() {
             };
 
             // Ajouter un marqueur pour la position de l'utilisateur
-            const userMarker = new google.maps.Marker({
+            const userMarker = new google.maps.marker.AdvancedMarkerElement({
                 position: userLocation,
                 map: map,
                 title: 'Votre position',
@@ -106,7 +106,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
-    // Initialiser la carte
-    initMap();
 });
