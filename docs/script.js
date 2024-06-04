@@ -7,12 +7,25 @@ function initMap() {
         center: cabinetLocation
     });
 
-    // Ajouter un marqueur pour la localisation du cabinet
+
+
+  // Ajouter un marqueur pour la localisation du cabinet
+if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
     const marker = new google.maps.marker.AdvancedMarkerElement({
         position: cabinetLocation,
         map: map,
         title: 'Cabinet Dentaire Docteur Anthony'
     });
+} else {
+    const marker = new google.maps.Marker({
+        position: cabinetLocation,
+        map: map,
+        title: 'Cabinet Dentaire Docteur Anthony'
+    });
+}
+
+
+
 
     // Directions service and renderer
     const directionsService = new google.maps.DirectionsService();
@@ -27,20 +40,42 @@ function initMap() {
                 lng: position.coords.longitude
             };
 
-            // Ajouter un marqueur pour la position de l'utilisateur
-            const userMarker = new google.maps.marker.AdvancedMarkerElement({
-                position: userLocation,
-                map: map,
-                title: 'Votre position',
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 8,
-                    fillColor: '#4285F4',
-                    fillOpacity: 1,
-                    strokeWeight: 2,
-                    strokeColor: '#ffffff'
-                }
-            });
+
+
+
+         // Ajouter un marqueur pour la position de l'utilisateur
+if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
+    const userMarker = new google.maps.marker.AdvancedMarkerElement({
+        position: userLocation,
+        map: map,
+        title: 'Votre position',
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            fillColor: '#4285F4',
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: '#ffffff'
+        }
+    });
+} else {
+    const userMarker = new google.maps.Marker({
+        position: userLocation,
+        map: map,
+        title: 'Votre position',
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            fillColor: '#4285F4',
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: '#ffffff'
+        }
+    });
+}
+
+
+
 
             // Recentrer la carte pour inclure la position du cabinet et celle de l'utilisateur
             const bounds = new google.maps.LatLngBounds();
