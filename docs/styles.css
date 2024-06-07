@@ -161,9 +161,7 @@ footer {
     text-align: center;
 }
 
-
-
-
+/* CSS pour centrer les conseils dentaires */
 #tip-container {
     display: flex;
     justify-content: center;
@@ -171,8 +169,11 @@ footer {
     height: 100px; /* Ajustez la hauteur selon vos besoins */
     text-align: center;
     margin: 0 auto;
+    flex-direction: column;
 }
 
 #tip-container p {
     margin: 0;
+    font-size: 1.2em;
+    line-height: 1.5;
 }
