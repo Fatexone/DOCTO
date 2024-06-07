@@ -108,10 +108,52 @@ function handleLocationError(browserHasGeolocation, pos) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Vos conseils dentaires
+    const dentalTips = [
+        "Brossez-vous les dents deux fois par jour avec un dentifrice fluoré.",
+        "Utilisez la soie dentaire quotidiennement pour éliminer la plaque entre les dents.",
+        "Évitez les aliments et les boissons sucrés pour prévenir les caries.",
+        "Visitez votre dentiste régulièrement pour des examens et des nettoyages.",
+        "Utilisez un bain de bouche antibactérien pour réduire la plaque et prévenir les maladies des gencives.",
+        "Remplacez votre brosse à dents tous les trois mois ou plus tôt si les poils sont usés.",
+        "Mâchez du chewing-gum sans sucre pour stimuler la production de salive.",
+        "Buvez beaucoup d'eau pour garder votre bouche hydratée et éliminer les débris alimentaires.",
+        "Évitez de fumer, car le tabac peut causer des maladies des gencives et des cancers de la bouche.",
+        "Portez un protège-dents si vous pratiquez des sports de contact pour protéger vos dents."
+    ];
+
+    const tipContainer = document.getElementById('tip-container');
+    let currentTipIndex = 0;
+
+    function showNextTip() {
+        // Efface le contenu précédent
+        tipContainer.textContent = '';
+
+        // Affiche le prochain conseil
+        const tip = document.createElement('p');
+        tip.textContent = dentalTips[currentTipIndex];
+        tipContainer.appendChild(tip);
+
+        // Met à jour l'index pour le prochain conseil
+        currentTipIndex = (currentTipIndex + 1) % dentalTips.length;
+
+        // Définit un délai avant de montrer le prochain conseil
+        setTimeout(showNextTip, 5000); // Change de conseil toutes les 5 secondes
+    }
+
+    // Démarre l'affichage des conseils
+    showNextTip();
+
+
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     const faqCategoryLinks = document.querySelectorAll('.faq-category-link');
     const faqCategories = document.querySelectorAll('.faq-category');
+
+
+// Nouveau code : 
+
+
 
     // Navigation entre sections
     navLinks.forEach(link => {
