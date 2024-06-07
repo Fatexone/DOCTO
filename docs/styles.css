@@ -161,3 +161,18 @@ footer {
     text-align: center;
 }
 
+
+
+
+#tip-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Ajustez la hauteur selon vos besoins */
+    text-align: center;
+    margin: 0 auto;
+}
+
+#tip-container p {
+    margin: 0;
+}
