@@ -162,12 +162,15 @@ footer {
 }
 
 /* CSS pour centrer les conseils dentaires */
+#dental-tips {
+    text-align: center;
+}
+
 #tip-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100px; /* Ajustez la hauteur selon vos besoins */
-    text-align: center;
     margin: 0 auto;
     flex-direction: column;
 }
