@@ -6,9 +6,36 @@
     <title>Cabinet Dentaire</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkKGQeERRFHqEANgvrpgpJTQ5dj2iUtVI&callback=initMap&libraries=marker,places"></script>
-</head>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkKGQeERRFHqEANgvrpgpJTQ5dj2iUtVI&callback=initMap&libraries=places"></script>
+    <script>
+        let map;
 
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+                mapId: 'YOUR_MAP_ID' // Remplacez par votre ID de carte
+            });
+
+            const advancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
+                map: map,
+                position: { lat: -34.397, lng: 150.644 },
+                title: "Hello World!",
+                content: document.createElement('div') // Utilisez un élément HTML personnalisé pour le contenu du marqueur
+            });
+
+            map.addListener("click", (mapsMouseEvent) => {
+                const content = document.createElement('div');
+                content.textContent = "Vous avez cliqué ici!";
+                new google.maps.marker.AdvancedMarkerElement({
+                    map: map,
+                    position: mapsMouseEvent.latLng,
+                    content: content
+                });
+            });
+        }
+    </script>
+</head>
 
 <body>
     <header>

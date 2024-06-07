@@ -1,11 +1,15 @@
 function initMap() {
     const cabinetLocation = { lat: 48.8544, lng: 2.3624 }; // Coordonnées de 19 Rue Saint-Antoine, 75004 Paris
 
-    // Créer la carte centrée sur la localisation du cabinet
-    const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14,
-        center: cabinetLocation
-    });
+
+
+const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    center: cabinetLocation,
+    mapId: 'YOUR_MAP_ID' // Remplacez 'YOUR_MAP_ID' par votre Map ID
+});
+
+
 
     // Ajouter un marqueur pour la localisation du cabinet
     if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
