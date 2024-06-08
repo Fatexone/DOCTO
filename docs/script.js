@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tipContainer = document.getElementById('tip-container');
     let currentTipIndex = 0;
-    let tipInterval;
 
     function showNextTip() {
         // Efface le contenu précédent
@@ -179,16 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Met à jour l'index pour le prochain conseil
         currentTipIndex = (currentTipIndex + 1) % dentalTips.length;
+
+        // Définit un délai avant de montrer le prochain conseil
+        setTimeout(showNextTip, 5000); // Change de conseil toutes les 5 secondes
     }
 
-    function startDentalTips() {
-        showNextTip();
-        tipInterval = setInterval(showNextTip, 5000); // Change de conseil toutes les 5 secondes
-    }
-
-    function stopDentalTips() {
-        clearInterval(tipInterval);
-    }
+    // Démarre l'affichage des conseils
+    showNextTip();
 
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
@@ -203,13 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sections.forEach(section => {
                 section.classList.toggle('hidden', section.id !== targetId);
             });
-
-            // Démarre l'affichage des conseils dentaires si nous sommes sur la page d'accueil
-            if (targetId === 'home') {
-                startDentalTips();
-            } else {
-                stopDentalTips();
-            }
         });
     });
 
@@ -226,7 +215,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialiser la carte
     initMap();
-
-    // Initialiser les conseils dentaires pour la première fois
-    startDentalTips();
 });
