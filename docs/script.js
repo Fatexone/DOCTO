@@ -149,8 +149,7 @@ function handleLocationError(browserHasGeolocation, pos) {
                 'Erreur : Votre navigateur ne supporte pas la géolocalisation.');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Vos conseils dentaires
+function initDentalTips() {
     const dentalTips = [
         "Brossez-vous les dents deux fois par jour avec un dentifrice fluoré.",
         "Utilisez la soie dentaire quotidiennement pour éliminer la plaque entre les dents.",
@@ -185,7 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Démarre l'affichage des conseils
     showNextTip();
+}
 
+document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     const faqCategoryLinks = document.querySelectorAll('.faq-category-link');
@@ -199,6 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
             sections.forEach(section => {
                 section.classList.toggle('hidden', section.id !== targetId);
             });
+
+            // Vérifier si nous revenons à la page d'accueil
+            if (targetId === 'home') {
+                initDentalTips();
+            }
         });
     });
 
@@ -215,4 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialiser la carte
     initMap();
+
+    // Initialiser les conseils dentaires pour la première fois
+    initDentalTips();
 });
