@@ -1,15 +1,11 @@
 function initMap() {
     const cabinetLocation = { lat: 48.8544, lng: 2.3624 }; // Coordonnées de 19 Rue Saint-Antoine, 75004 Paris
 
-
-
-const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 14,
-    center: cabinetLocation,
-    mapId: 'YOUR_MAP_ID' // Remplacez 'YOUR_MAP_ID' par votre Map ID
-});
-
-
+    const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: cabinetLocation,
+        mapId: 'YOUR_MAP_ID' // Remplacez 'YOUR_MAP_ID' par votre Map ID
+    });
 
     // Ajouter un marqueur pour la localisation du cabinet
     if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
@@ -86,6 +82,7 @@ const map = new google.maps.Map(document.getElementById('map'), {
                 (response, status) => {
                     if (status === 'OK') {
                         directionsRenderer.setDirections(response);
+                        displayTravelTimes(userLocation, cabinetLocation);
                     } else {
                         console.log('La demande de directions a échoué en raison de ' + status);
                     }
@@ -98,6 +95,51 @@ const map = new google.maps.Map(document.getElementById('map'), {
     } else {
         // Le navigateur ne supporte pas la géolocalisation
         handleLocationError(false, map.getCenter());
+    }
+}
+
+function displayTravelTimes(origin, destination) {
+    const travelModes = [google.maps.TravelMode.DRIVING, google.maps.TravelMode.WALKING, google.maps.TravelMode.BICYCLING, google.maps.TravelMode.TRANSIT];
+    const travelTimesContainer = document.getElementById('travel-times');
+
+    travelTimesContainer.innerHTML = '<h3>Temps de trajet estimé</h3>';
+
+    travelModes.forEach(mode => {
+        const directionsService = new google.maps.DirectionsService();
+
+        directionsService.route(
+            {
+                origin: origin,
+                destination: destination,
+                travelMode: mode
+            },
+            (response, status) => {
+                if (status === 'OK') {
+                    const duration = response.routes[0].legs[0].duration.text;
+                    const modeText = getModeText(mode);
+                    const travelTimeElement = document.createElement('p');
+                    travelTimeElement.textContent = `En ${modeText}: ${duration}`;
+                    travelTimesContainer.appendChild(travelTimeElement);
+                } else {
+                    console.log('Directions request failed due to ' + status);
+                }
+            }
+        );
+    });
+}
+
+function getModeText(mode) {
+    switch (mode) {
+        case google.maps.TravelMode.DRIVING:
+            return 'voiture';
+        case google.maps.TravelMode.WALKING:
+            return 'marche';
+        case google.maps.TravelMode.BICYCLING:
+            return 'vélo';
+        case google.maps.TravelMode.TRANSIT:
+            return 'transport en commun';
+        default:
+            return 'mode inconnu';
     }
 }
 
@@ -144,13 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Démarre l'affichage des conseils
     showNextTip();
 
-
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     const faqCategoryLinks = document.querySelectorAll('.faq-category-link');
     const faqCategories = document.querySelectorAll('.faq-category');
-
-
 
     // Navigation entre sections
     navLinks.forEach(link => {
@@ -173,4 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Initialiser la carte
+    initMap();
 });
