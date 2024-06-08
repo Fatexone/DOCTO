@@ -149,7 +149,8 @@ function handleLocationError(browserHasGeolocation, pos) {
                 'Erreur : Votre navigateur ne supporte pas la géolocalisation.');
 }
 
-function initDentalTips() {
+document.addEventListener('DOMContentLoaded', () => {
+    // Vos conseils dentaires
     const dentalTips = [
         "Brossez-vous les dents deux fois par jour avec un dentifrice fluoré.",
         "Utilisez la soie dentaire quotidiennement pour éliminer la plaque entre les dents.",
@@ -165,6 +166,7 @@ function initDentalTips() {
 
     const tipContainer = document.getElementById('tip-container');
     let currentTipIndex = 0;
+    let tipInterval;
 
     function showNextTip() {
         // Efface le contenu précédent
@@ -175,20 +177,19 @@ function initDentalTips() {
         tip.textContent = dentalTips[currentTipIndex];
         tipContainer.appendChild(tip);
 
-        console.log("Affichage du conseil :", dentalTips[currentTipIndex]);
-
         // Met à jour l'index pour le prochain conseil
         currentTipIndex = (currentTipIndex + 1) % dentalTips.length;
-
-        // Définit un délai avant de montrer le prochain conseil
-        setTimeout(showNextTip, 5000); // Change de conseil toutes les 5 secondes
     }
 
-    // Démarre l'affichage des conseils
-    showNextTip();
-}
+    function startDentalTips() {
+        showNextTip();
+        tipInterval = setInterval(showNextTip, 5000); // Change de conseil toutes les 5 secondes
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
+    function stopDentalTips() {
+        clearInterval(tipInterval);
+    }
+
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     const faqCategoryLinks = document.querySelectorAll('.faq-category-link');
@@ -203,9 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 section.classList.toggle('hidden', section.id !== targetId);
             });
 
-            // Vérifier si nous revenons à la page d'accueil
+            // Démarre l'affichage des conseils dentaires si nous sommes sur la page d'accueil
             if (targetId === 'home') {
-                initDentalTips();
+                startDentalTips();
+            } else {
+                stopDentalTips();
             }
         });
     });
@@ -225,5 +228,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initMap();
 
     // Initialiser les conseils dentaires pour la première fois
-    initDentalTips();
+    startDentalTips();
 });
