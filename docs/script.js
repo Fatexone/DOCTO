@@ -8,11 +8,19 @@ function initMap() {
     });
 
     // Ajouter un marqueur pour la localisation du cabinet
-    const marker = new google.maps.marker.AdvancedMarkerElement({
-        position: cabinetLocation,
-        map: map,
-        title: 'Cabinet Dentaire Docteur Anthony'
-    });
+    if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+            position: cabinetLocation,
+            map: map,
+            title: 'Cabinet Dentaire Docteur Anthony'
+        });
+    } else {
+        const marker = new google.maps.Marker({
+            position: cabinetLocation,
+            map: map,
+            title: 'Cabinet Dentaire Docteur Anthony'
+        });
+    }
 
     // Directions service and renderer
     const directionsService = new google.maps.DirectionsService();
@@ -28,19 +36,35 @@ function initMap() {
             };
 
             // Ajouter un marqueur pour la position de l'utilisateur
-            const userMarker = new google.maps.marker.AdvancedMarkerElement({
-                position: userLocation,
-                map: map,
-                title: 'Votre position',
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 8,
-                    fillColor: '#4285F4',
-                    fillOpacity: 1,
-                    strokeWeight: 2,
-                    strokeColor: '#ffffff'
-                }
-            });
+            if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
+                const userMarker = new google.maps.marker.AdvancedMarkerElement({
+                    position: userLocation,
+                    map: map,
+                    title: 'Votre position',
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 8,
+                        fillColor: '#4285F4',
+                        fillOpacity: 1,
+                        strokeWeight: 2,
+                        strokeColor: '#ffffff'
+                    }
+                });
+            } else {
+                const userMarker = new google.maps.Marker({
+                    position: userLocation,
+                    map: map,
+                    title: 'Votre position',
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 8,
+                        fillColor: '#4285F4',
+                        fillOpacity: 1,
+                        strokeWeight: 2,
+                        strokeColor: '#ffffff'
+                    }
+                });
+            }
 
             // Recentrer la carte pour inclure la position du cabinet et celle de l'utilisateur
             const bounds = new google.maps.LatLngBounds();
@@ -142,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tipContainer = document.getElementById('tip-container');
     let currentTipIndex = 0;
-    let tipInterval;
 
     function showNextTip() {
         // Efface le contenu précédent
@@ -155,16 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Met à jour l'index pour le prochain conseil
         currentTipIndex = (currentTipIndex + 1) % dentalTips.length;
+
+        // Définit un délai avant de montrer le prochain conseil
+        setTimeout(showNextTip, 5000); // Change de conseil toutes les 5 secondes
     }
 
-    function startDentalTips() {
-        showNextTip();
-        tipInterval = setInterval(showNextTip, 5000); // Change de conseil toutes les 5 secondes
-    }
-
-    function stopDentalTips() {
-        clearInterval(tipInterval);
-    }
+    // Démarre l'affichage des conseils
+    showNextTip();
 
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
@@ -179,13 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sections.forEach(section => {
                 section.classList.toggle('hidden', section.id !== targetId);
             });
-
-            // Démarre l'affichage des conseils dentaires si nous sommes sur la page d'accueil
-            if (targetId === 'home') {
-                startDentalTips();
-            } else {
-                stopDentalTips();
-            }
         });
     });
 
@@ -202,7 +215,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialiser la carte
     initMap();
-
-    // Initialiser les conseils dentaires pour la première fois
-    startDentalTips();
 });
