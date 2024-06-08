@@ -151,9 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const faqCategories = document.querySelectorAll('.faq-category');
 
 
-// Nouveau code : 
-
-
 
     // Navigation entre sections
     navLinks.forEach(link => {

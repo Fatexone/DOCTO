@@ -170,7 +170,6 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px; /* Ajustez la hauteur selon vos besoins */
     margin: 0 auto;
     flex-direction: column;
 }
@@ -179,4 +178,6 @@ footer {
     margin: 0;
     font-size: 1.2em;
     line-height: 1.5;
+    font-weight: bold;
+    font-style: italic;
 }
