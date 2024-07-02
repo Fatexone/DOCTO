@@ -1,99 +1,63 @@
-function initMap() {
-    const cabinetLocation = { lat: 48.8544, lng: 2.3624 }; // Coordonnées de 19 Rue Saint-Antoine, 75004 Paris
+let map, directionsService, directionsRenderer, markers = [];
 
-    const map = new google.maps.Map(document.getElementById('map'), {
+function initMap() {
+    const cabinetLocation = { lat: 48.8544, lng: 2.3624 };
+
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: cabinetLocation,
-        mapId: 'YOUR_MAP_ID' // Remplacez 'YOUR_MAP_ID' par votre Map ID
+        mapId: '621203c87004e484'
     });
 
-    // Ajouter un marqueur pour la localisation du cabinet
-    if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
-        const marker = new google.maps.marker.AdvancedMarkerElement({
-            position: cabinetLocation,
-            map: map,
-            title: 'Cabinet Dentaire Docteur Anthony'
-        });
-    } else {
-        const marker = new google.maps.Marker({
-            position: cabinetLocation,
-            map: map,
-            title: 'Cabinet Dentaire Docteur Anthony'
-        });
-    }
+    const marker = new google.maps.Marker({
+        position: cabinetLocation,
+        map: map,
+        title: 'Cabinet Dentaire Docteur Anthony',
+        animation: google.maps.Animation.BOUNCE
+    });
 
-    // Directions service and renderer
-    const directionsService = new google.maps.DirectionsService();
-    const directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
 
-    // Utiliser la géolocalisation pour obtenir la position de l'utilisateur
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(position => {
             const userLocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
-            // Ajouter un marqueur pour la position de l'utilisateur
-            if (google.maps.marker && google.maps.marker.AdvancedMarkerElement) {
-                const userMarker = new google.maps.marker.AdvancedMarkerElement({
-                    position: userLocation,
-                    map: map,
-                    title: 'Votre position',
-                    icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        scale: 8,
-                        fillColor: '#4285F4',
-                        fillOpacity: 1,
-                        strokeWeight: 2,
-                        strokeColor: '#ffffff'
-                    }
-                });
-            } else {
-                const userMarker = new google.maps.Marker({
-                    position: userLocation,
-                    map: map,
-                    title: 'Votre position',
-                    icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        scale: 8,
-                        fillColor: '#4285F4',
-                        fillOpacity: 1,
-                        strokeWeight: 2,
-                        strokeColor: '#ffffff'
-                    }
-                });
-            }
-
-            // Recentrer la carte pour inclure la position du cabinet et celle de l'utilisateur
+            const userMarker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: 'Votre position',
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 8,
+                    fillColor: '#4285F4',
+                    fillOpacity: 1,
+                    strokeWeight: 2,
+                    strokeColor: '#ffffff'
+                }
+            });
             const bounds = new google.maps.LatLngBounds();
             bounds.extend(cabinetLocation);
             bounds.extend(userLocation);
             map.fitBounds(bounds);
 
-            // Tracer l'itinéraire de l'utilisateur au cabinet
-            directionsService.route(
-                {
-                    origin: userLocation,
-                    destination: cabinetLocation,
-                    travelMode: google.maps.TravelMode.DRIVING
-                },
-                (response, status) => {
-                    if (status === 'OK') {
-                        directionsRenderer.setDirections(response);
-                        displayTravelTimes(userLocation, cabinetLocation);
-                    } else {
-                        console.log('La demande de directions a échoué en raison de ' + status);
-                    }
+            directionsService.route({
+                origin: userLocation,
+                destination: cabinetLocation,
+                travelMode: google.maps.TravelMode.DRIVING
+            }, (response, status) => {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(response);
+                    displayTravelTimes(userLocation, cabinetLocation);
+                } else {
+                    console.log('La demande de directions a échoué en raison de ' + status);
                 }
-            );
-
-        }, function() {
-            handleLocationError(true, map.getCenter());
-        });
+            });
+        }, () => handleLocationError(true, map.getCenter()));
     } else {
-        // Le navigateur ne supporte pas la géolocalisation
         handleLocationError(false, map.getCenter());
     }
 }
@@ -106,25 +70,21 @@ function displayTravelTimes(origin, destination) {
 
     travelModes.forEach(mode => {
         const directionsService = new google.maps.DirectionsService();
-
-        directionsService.route(
-            {
-                origin: origin,
-                destination: destination,
-                travelMode: mode
-            },
-            (response, status) => {
-                if (status === 'OK') {
-                    const duration = response.routes[0].legs[0].duration.text;
-                    const modeText = getModeText(mode);
-                    const travelTimeElement = document.createElement('p');
-                    travelTimeElement.textContent = `En ${modeText}: ${duration}`;
-                    travelTimesContainer.appendChild(travelTimeElement);
-                } else {
-                    console.log('Directions request failed due to ' + status);
-                }
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: mode
+        }, (response, status) => {
+            if (status === 'OK') {
+                const duration = response.routes[0].legs[0].duration.text;
+                const modeText = getModeText(mode);
+                const travelTimeElement = document.createElement('p');
+                travelTimeElement.textContent = `En ${modeText}: ${duration}`;
+                travelTimesContainer.appendChild(travelTimeElement);
+            } else {
+                console.log('Directions request failed due to ' + status);
             }
-        );
+        });
     });
 }
 
@@ -145,12 +105,71 @@ function getModeText(mode) {
 
 function handleLocationError(browserHasGeolocation, pos) {
     console.log(browserHasGeolocation ?
-                'Erreur : Le service de géolocalisation a échoué.' :
-                'Erreur : Votre navigateur ne supporte pas la géolocalisation.');
+        'Erreur : Le service de géolocalisation a échoué.' :
+        'Erreur : Votre navigateur ne supporte pas la géolocalisation.');
+}
+
+function showPlaces(type) {
+    clearMarkers();
+    const cabinetLocation = { lat: 48.8544, lng: 2.3624 };
+    const service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+        location: cabinetLocation,
+        radius: 1000,
+        type: [type]
+    }, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (let i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+            }
+        }
+    });
+}
+
+function createMarker(place) {
+    if (!place.geometry || !place.geometry.location) return;
+
+    const marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        title: place.name
+    });
+
+    const infowindow = new google.maps.InfoWindow({
+        content: `<div><strong>${place.name}</strong><br>${place.vicinity}</div>`
+    });
+
+    marker.addListener('click', () => {
+        infowindow.open(map, marker);
+        calculateRouteTo(place.geometry.location);
+    });
+
+    markers.push(marker);
+}
+
+function clearMarkers() {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
+}
+
+function calculateRouteTo(destination) {
+    const cabinetLocation = { lat: 48.8544, lng: 2.3624 };
+    directionsService.route({
+        origin: cabinetLocation,
+        destination: destination,
+        travelMode: google.maps.TravelMode.WALKING
+    }, (response, status) => {
+        if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+        } else {
+            console.log('Directions request failed due to ' + status);
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Vos conseils dentaires
     const dentalTips = [
         "Brossez-vous les dents deux fois par jour avec un dentifrice fluoré.",
         "Utilisez la soie dentaire quotidiennement pour éliminer la plaque entre les dents.",
@@ -168,22 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTipIndex = 0;
 
     function showNextTip() {
-        // Efface le contenu précédent
         tipContainer.textContent = '';
-
-        // Affiche le prochain conseil
         const tip = document.createElement('p');
         tip.textContent = dentalTips[currentTipIndex];
         tipContainer.appendChild(tip);
-
-        // Met à jour l'index pour le prochain conseil
         currentTipIndex = (currentTipIndex + 1) % dentalTips.length;
-
-        // Définit un délai avant de montrer le prochain conseil
-        setTimeout(showNextTip, 5000); // Change de conseil toutes les 5 secondes
+        setTimeout(showNextTip, 5000);
     }
 
-    // Démarre l'affichage des conseils
     showNextTip();
 
     const navLinks = document.querySelectorAll('.nav-link');
@@ -191,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const faqCategoryLinks = document.querySelectorAll('.faq-category-link');
     const faqCategories = document.querySelectorAll('.faq-category');
 
-    // Navigation entre sections
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
@@ -202,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Affichage des catégories de la FAQ
     faqCategoryLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
@@ -213,6 +222,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initialiser la carte
     initMap();
 });

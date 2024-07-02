@@ -1,18 +1,30 @@
+/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-image: url('background-image.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    color: #333;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1em;
+}
+
+/* Header Styles */
 header {
-    background-color: rgba(76, 175, 80, 0.8); /* Ajout d'un fond semi-transparent pour le header */
+    background-color: rgba(0, 123, 255, 0.8); /* Blue background */
     color: white;
     padding: 1em 0;
     text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 
 nav ul {
@@ -30,15 +42,25 @@ nav ul li a {
     text-decoration: none;
 }
 
+/* Main Content Styles */
 main {
     padding: 1em;
-    background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent pour le contenu principal */
+    padding-top: 120px; /* Add enough padding to avoid content being hidden by the header */
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 section {
     margin-bottom: 2em;
+    padding-top: 60px; /* Add padding to avoid overlap with the header */
 }
 
+section h2 {
+    text-align: center;
+    color: #007BFF; /* Blue color */
+    margin-top: 0;
+}
+
+/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
@@ -57,22 +79,26 @@ form input, form textarea, form select {
 form button {
     margin-top: 1em;
     padding: 1em;
-    background-color: #4CAF50;
+    background-color: #007BFF; /* Blue color */
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 form button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
+/* Footer Styles */
 footer {
     background-color: #f1f1f1;
     text-align: center;
     padding: 1em 0;
 }
 
+/* FAQ Styles */
 .faq {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -84,7 +110,7 @@ footer {
 .faq-category-link {
     display: block;
     padding: 1em;
-    background-color: #4CAF50;
+    background-color: #007BFF; /* Blue color */
     color: white;
     text-align: center;
     text-decoration: none;
@@ -94,12 +120,12 @@ footer {
 }
 
 .faq-category-link:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
     transform: translateY(-2px);
 }
 
 .faq-category {
-    display: block; /* Initialisez avec display: block */
+    display: block;
     margin-top: 1em;
     padding: 1em;
     background-color: rgba(255, 255, 255, 0.9);
@@ -115,8 +141,8 @@ footer {
     display: none;
 }
 
-/* Nouveau CSS pour centrer le contenu et styliser le lien Doctolib */
-.contact-content {
+/* Contact Styles */
+.contact-content, .leave-review {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -124,7 +150,7 @@ footer {
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #007BFF; /* Blue color */
     color: white;
     text-align: center;
     text-decoration: none;
@@ -135,19 +161,39 @@ footer {
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
     transform: translateY(-2px);
 }
 
-/* CSS pour l'image et le texte d'accueil */
+.leave-review p {
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+
+.leave-review .button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+}
+
+/* Welcome Content Styles */
 .welcome-content {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .welcome-image {
-    max-width: 100%;
+    max-width: 50%; /* Adjusted max-width to reduce the size of the photo */
     height: auto;
     margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-content .text-content {
+    max-width: 800px;
+    text-align: left;
 }
 
 .welcome-content p {
@@ -156,12 +202,7 @@ footer {
     line-height: 1.5;
 }
 
-/* Centrer le titre h2 */
-#home h2 {
-    text-align: center;
-}
-
-/* CSS pour centrer les conseils dentaires */
+/* Dental Tips Styles */
 #dental-tips {
     text-align: center;
 }
@@ -180,4 +221,123 @@ footer {
     line-height: 1.5;
     font-weight: bold;
     font-style: italic;
+}
+
+/* Presentation Text Styles */
+.presentation-text {
+    margin-top: 2em;
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.presentation-text h3 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 1em;
+    color: #007BFF; /* Blue color */
+}
+
+.presentation-text p {
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+/* Card Styles */
+.card {
+    padding: 1.5em;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5em;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    header, footer {
+        text-align: center;
+        padding: 0.5em;
+    }
+    
+    nav ul li {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .faq {
+        grid-template-columns: 1fr;
+    }
+
+    .button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .welcome-content p, #tip-container p {
+        font-size: 1em;
+    }
+
+    main {
+        padding: 0.5em;
+        padding-top: 100px; /* Adjust padding for smaller screens */
+    }
+
+    section {
+        padding: 1em;
+        padding-top: 60px; /* Add padding to avoid overlap with the header */
+    }
+
+    .welcome-image {
+        max-width: 70%; /* Adjusted max-width for medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    header, footer {
+        font-size: 0.9em;
+    }
+
+    .button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .welcome-content p, #tip-container p {
+        font-size: 0.9em;
+    }
+
+    section {
+        padding: 0.5em;
+        padding-top: 60px; /* Add padding to avoid overlap with the header */
+    }
+
+    .welcome-image {
+        max-width: 100%; /* Adjusted max-width for small screens */
+    }
+}
+
+/* Ajoutez ceci à la fin de votre styles.css */
+
+/* Styles for Map Buttons */
+.map-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.map-buttons .button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
 }
